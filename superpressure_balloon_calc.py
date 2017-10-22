@@ -6,6 +6,8 @@
 # Richard Meadows:  https://richardeoin.github.io/sp/
 # Vincent E. Lally: https://opensky.ucar.edu/islandora/object/technotes%3A20
 
+# With thanks to TomasTT7: https://github.com/TomasTT7/SuperpressureBalloonsNotebook/blob/master/Superpressure_Balloons.ipynb
+
 import numpy
 import matplotlib.pyplot as plt
 
@@ -26,6 +28,7 @@ print 'Balloon Calculator'
 print
 
 d = get_float('membrane density (g/m^2)',46.3) # Get the membrane density (g/m^2)
+t = get_float('membrane thickness (microns)',44)/1000000 # Get the membrane thickness (microns), convert to m
 
 # Ask the user for the balloon type:
 # 'Mylar': https://en.wikipedia.org/wiki/Mylar_balloon_(geometry)
@@ -75,7 +78,7 @@ else: # Rectangular ('Paper Bag')
     extra = get_float('number of extra seams', 0) # Any extra seams - these are assumed to be the full length of the balloon
     # Calculate the mass of the empty balloon:
     # Density * ((double the area of the rectangle) + (double thickness of seam area))
-    m = d * ((2 * w * h) + (extra * 2 * length * seam))
+    m = d * ((2 * w * h) + (extra * 2 * h * seam))
     w = w - (2 * seam) # Calculate the width of the inflatable balloon
     h = h - (2 * seam) # Calculate the length of the inflatable balloon
     v = 1000 * w**3 * ((h / (numpy.pi * w)) - (0.142 * (1 - 10**(-h/w)))) # Calculate the volume in L (not m^3)
@@ -177,6 +180,14 @@ print 'The typical supertemperature at that altitude could be %.1fC' % stemp
 print 'The gas pressure becomes %.1fkPa' % P
 Pdiff = P - pressure[den]
 print 'Superpressure becomes %.1fkPa or %.3f atm' % (Pdiff, (Pdiff / 101.325))
+print
+
+# Calculate maximum circumferential and longitudinal stress for the Mylar balloon
+if balloon == 'M': # 'Mylar' Balloon
+    cstress = (Pdiff * 1000 * r / t) / 1000000
+    lstress = (Pdiff * 1000 * 0.599 * r / (2 * t)) / 1000000
+    print 'Maximum circumferential stress is %.1fMPa' % cstress
+    print 'Maximum longitudinal stress is %.1fMPa' % lstress
 
 # Gamma is a measure of balloon stretch: volume / initial_volume
 # For increasing gamma, calculate the new float altitude
