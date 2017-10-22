@@ -1,2 +1,25 @@
 # Superpressure_Balloon_Calc
-Superpressure Balloon Calculator - calculates the expected float altitude of small superpressure balloons
+
+A python superpressure balloon calculator:
+- Calculates the expected float altitude for three shapes of 'Mylar' balloon with Helium or Hydrogen fill
+- Based extensively on the work of [Richard Meadows](https://richardeoin.github.io/sp/) and [Vincent E. Lally](https://opensky.ucar.edu/islandora/object/technotes%3A20)
+- Plots what the float altitude and superpressure could be for varying amounts of Gamma (volume / initial volume)
+
+### Licence
+
+This project is distributed under a [GNU GENERAL PUBLIC LICENSE](https://github.com/PaulZC/Superpressure_Balloon_Calc/blob/master/LICENSE.md)
+
+Enjoy!
+
+**_Paul_**
+
+
+
+
+
+
+
+
+
+
+
