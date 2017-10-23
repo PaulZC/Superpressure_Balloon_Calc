@@ -144,7 +144,7 @@ else:
 print 'Balloon contains %.3f mol of %s' % (mol, gas)
 print
 
-# Calculate zero pressure altitude (balloon is not fully inflated at this point)
+# Calculate zero pressure altitude
 for alt in range(len(altitude)):
     P = mol * 8.3144598 * (temperature[alt] + 273.16) / (v / 1000) # Calculate the pressure using P = nRT / V
     P = P / 1000 # Convert to kPa
@@ -157,7 +157,7 @@ print
 for den in range(len(density)):
     if density[den] <= tm / v: break
 
-print 'Maximum altitude with zero stretch is %.0fm' % altitude[den]
+print 'Maximum altitude with zero stretch (Gamma = 1.0) is %.0fm' % altitude[den]
 print 'Temperature at that altitude is %.1fC' % temperature[den]
 print 'Pressure at that altitude is %.1fkPa' % pressure[den]
 print
