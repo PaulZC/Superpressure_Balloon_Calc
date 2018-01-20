@@ -8,6 +8,12 @@
 
 # With thanks to TomasTT7: https://github.com/TomasTT7/SuperpressureBalloonsNotebook/blob/master/Superpressure_Balloons.ipynb
 
+# The Soretrac EVOH film is:
+# 12mu PET, 2mu Adhesive, 12mu LDPE, 6mu EVOH, 12mu LDPE
+# Quoted thickness is 42um
+# 46 g/m^2 approx.
+# 1100 kg/m^3 approx.
+
 import numpy
 import matplotlib.pyplot as plt
 
@@ -27,8 +33,8 @@ def supertemp(alt):
 print 'Balloon Calculator'
 print
 
-d = get_float('membrane density (g/m^2)',46.3) # Get the membrane density (g/m^2)
-t = get_float('membrane thickness (microns)',44)/1000000 # Get the membrane thickness (microns), convert to m
+d = get_float('membrane density (g/m^2)',46) # Get the membrane density (g/m^2)
+t = get_float('membrane thickness (microns)',42)/1000000 # Get the membrane thickness (microns), convert to m
 
 # Ask the user for the balloon type:
 # 'Mylar': https://en.wikipedia.org/wiki/Mylar_balloon_(geometry)
@@ -38,7 +44,7 @@ balloon = raw_input('Enter the balloon type (M for \'Mylar\', T for Tubular \'My
 if balloon != 'R' and balloon != 'M' and balloon != 'T': balloon = 'M'
 
 if balloon == 'M': # 'Mylar' Balloon
-    dia = get_float('balloon diameter including seams (m)',1.08) # Get the balloon diameter including seams
+    dia = get_float('balloon diameter including seams (m)',1.024) # Get the balloon diameter including seams
     seam = get_float('seam width (mm)', 12)/1000 # Get the heat weld seam width and convert to m
     extra = get_float('number of extra seams', 0) # Any extra seams - these are assumed to be the full diameter of the balloon
     # Calculate the mass of the empty balloon:
@@ -50,8 +56,8 @@ if balloon == 'M': # 'Mylar' Balloon
     print 'Inflated balloon volume will be %.1fL' % v
 
 elif balloon == 'T': # Tubular 'Mylar' Balloon
-    dia = get_float('balloon width (diameter) including seams (m)',1.08) # Get the balloon diameter including seams
-    length = get_float('total balloon length including seams (m)',1.08) # Get the balloon length including seams
+    dia = get_float('balloon width (diameter) including seams (m)',1.024) # Get the balloon diameter including seams
+    length = get_float('total balloon length including seams (m)',1.024) # Get the balloon length including seams
     if length < dia: raise ValueError('Length must be >= Diameter!') # Check that length >= diameter
     seam = get_float('seam width (mm)', 12)/1000 # Get the heat weld seam width and convert to m
     extra = get_float('number of extra seams', 0) # Any extra seams - these are assumed to be the full length of the balloon
@@ -72,8 +78,8 @@ elif balloon == 'T': # Tubular 'Mylar' Balloon
     print 'Inflated balloon volume will be between %.1fL and %.1fL' %(vmin, vmax)
 
 else: # Rectangular ('Paper Bag')
-    w = get_float('balloon width including seams (m)',1.08) # Get the balloon width including seams
-    h = get_float('balloon length including seams (m)',1.08) # Get the balloon length including seams
+    w = get_float('balloon width including seams (m)',1.024) # Get the balloon width including seams
+    h = get_float('balloon length including seams (m)',1.024) # Get the balloon length including seams
     seam = get_float('seam width (mm)', 12)/1000 # Get the heat weld seam width and convert to m
     extra = get_float('number of extra seams', 0) # Any extra seams - these are assumed to be the full length of the balloon
     # Calculate the mass of the empty balloon:
@@ -184,8 +190,8 @@ print
 
 # Calculate maximum circumferential and longitudinal stress for the Mylar balloon
 if balloon == 'M': # 'Mylar' Balloon
-    cstress = (Pdiff * 1000 * r / t) / 1000000
-    lstress = (Pdiff * 1000 * 0.599 * r / (2 * t)) / 1000000
+    cstress = (Pdiff * 1000 * r / (2 * t )) / 1000000
+    lstress = cstress * 0.599
     print 'Maximum circumferential stress is %.1fMPa' % cstress
     print 'Maximum longitudinal stress is %.1fMPa' % lstress
 
