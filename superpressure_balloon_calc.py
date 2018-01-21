@@ -44,9 +44,9 @@ balloon = raw_input('Enter the balloon type (M for \'Mylar\', T for Tubular \'My
 if balloon != 'R' and balloon != 'M' and balloon != 'T': balloon = 'M'
 
 if balloon == 'M': # 'Mylar' Balloon
-    dia = get_float('balloon diameter including seams (m)',1.024) # Get the balloon diameter including seams
+    dia = get_float('balloon diameter including seams (m)',2.024) # Get the balloon diameter including seams
     seam = get_float('seam width (mm)', 12)/1000 # Get the heat weld seam width and convert to m
-    extra = get_float('number of extra seams', 0) # Any extra seams - these are assumed to be the full diameter of the balloon
+    extra = get_float('number of extra seams', 2) # Any extra seams - these are assumed to be the full diameter of the balloon
     # Calculate the mass of the empty balloon:
     # Density * ((double the area of the circular layers) + (double thickness of seam area))
     m = d * ((2 * numpy.pi * ((dia/2)**2)) + (extra * 2 * dia * seam))
@@ -194,6 +194,16 @@ if balloon == 'M': # 'Mylar' Balloon
     lstress = cstress * 0.599
     print 'Maximum circumferential stress is %.1fMPa' % cstress
     print 'Maximum longitudinal stress is %.1fMPa' % lstress
+    print
+
+# Estimate initial ascent velocity for the Mylar balloon
+# v = sqrt ( 2 * free_lift * accn_gravity / (air_density * coeff_drag * area))
+# area = 2r^2 (assumes balloon is fully inflated?)
+if balloon == 'M': # 'Mylar' Balloon
+    c_d = 0.3 # Estimated coefficient of drag
+    vel = (2 * (f / 1000) * 9.807 / (1.225 * c_d * 2 * (r**2)))**0.5
+    print 'Estimated initial velocity is %.1fm/s' % vel
+    print
 
 # Gamma is a measure of balloon stretch: volume / initial_volume
 # For increasing gamma, calculate the new float altitude
