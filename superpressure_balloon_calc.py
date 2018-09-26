@@ -140,12 +140,12 @@ density = pressure / (0.2869 * (temperature + 273.1))
 # T = absolute temperature of the gas (K)
 
 # Molar mass of He = 4.002602 g/mol
-# Molar mass of H(2) = 1.00794 g/mol
+# Molar mass of H2 = 2.01588 g/mol
 
 if gas == 'He':
     mol = gm / 4.002602
 else:
-    mol = gm / 1.00794
+    mol = gm / 2.01588
 
 print 'Balloon contains %.3f mol of %s' % (mol, gas)
 print
